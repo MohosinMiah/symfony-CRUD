@@ -75,12 +75,15 @@ class ToListController extends AbstractController
 
 
     /**
-     * @Route("/delete", name="delete" )
+     * @Route("/delete/{id}", name="delete" )
      */
-    public function delete()
+    public function delete(ToLIst $id)
     {
-        return $this->render('to_list/index.html.twig', [
-            'controller_name' => 'ToListController',
-        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($id);
+        $entityManager->flush();
+
+   return $this->redirectToRoute('to_list');
+
     }
 }
